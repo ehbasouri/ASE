@@ -4,14 +4,24 @@
   "description": "Shiva vafadar project",
   "main": "index.js",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "mongoose": "^5.0.5",
-    "react": "^16.2.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^3.11.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack -w"
   },
   "author": "",
   "license": "ISC"
