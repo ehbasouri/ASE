@@ -1,16 +1,13 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
-mongoose
-  .connect('mongodb://127.0.0.1:27017/ase')
-  .then(function() {
-    console.log('Successfully connected to db');
-  })
-  .catch(function(err) {
-    console.log('Error on connect to db', err);
-  });
+const bodyparser = require('body-parser');
+const User = require('./models/user.model');
+const userController = require('./controlers/user.controller');
 
 const app = express();
+app.use(bodyparser.json());
+
+app.post('/register', userController.registerUser);
+app.get('/users', userController.getUsrs)
 
 app.listen(3000, function() {
   console.log('Server listening on port 3000');
