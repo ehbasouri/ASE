@@ -1,3 +1,5 @@
+const User = require('../models/user.model');
+
 function registerUser(req, res, next) {
   if (!req.body.email || !req.body.password) {
     res.status(400).end('Bad Data');
@@ -8,10 +10,12 @@ function registerUser(req, res, next) {
     email: req.body.email,
     password: req.body.password
   });
+  console.log('Saved?');
 
   newUser
     .save()
     .then(function() {
+      console.log('Saved');
       res.status(201).end(`${req.body.email} created`);
     })
     .catch(function(err) {
@@ -23,7 +27,7 @@ function registerUser(req, res, next) {
     });
 }
 
-function getUsrs(req, res, next) {
+function getUsers(req, res, next) {
   User.find().then(function (users) {
     res.json(users);
   }).catch(function (err) {
@@ -33,5 +37,5 @@ function getUsrs(req, res, next) {
 
 module.exports = {
   registerUser: registerUser,
-  getUsrs: getUser
+  getUsers: getUsers
 };
