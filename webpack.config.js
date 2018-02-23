@@ -15,6 +15,11 @@ module.exports = {
         options: {
           babelrc: true
         }
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        exclude: /node_modules/
       }
     ]
   }

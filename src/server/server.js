@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const User = require('./models/user.model');
 const userController = require('./controlers/user.controller');
 const path = require('path');
 require('./db');
@@ -12,6 +11,7 @@ console.log(path.join(__dirname, 'dist'));
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 app.post('/register', userController.registerUser);
+app.post('/login', userController.login)
 app.get('/users', userController.getUsers);
 
 app.listen(3000, function() {

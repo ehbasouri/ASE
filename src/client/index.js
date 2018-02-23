@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Register from './components/Register/Register.jsx';
-import Login from './components/Login/Login.jsx';
+import Auth from './components/Auth/Auth.jsx';
 
 ReactDOM.render(
   <div>
-    <Login />
-    <Register />
+    <Auth />
   </div>,
   document.getElementById('root')
 );
