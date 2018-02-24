@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 
 function registerUser(req, res, next) {
   if (!req.body.email || !req.body.password) {
@@ -43,7 +44,27 @@ function login(req, res, next) {
     return;
   }
 
-  User.find({ email: req.body.email });
+  User.findOne({ email: req.body.email })
+    .then(function(user) {
+      if (user == null) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+
+      if (user.password === req.body.password) {
+        const token = jwt.sign({
+          email: user.email,
+          id: user.id
+        }, 'secret');
+        res.status(200).json({ token: token });
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    })
+    .catch(function(err) {
+      res.status(500).json({ error: 'Backend Error' });
+      return;
+    });
 }
 
 module.exports = {

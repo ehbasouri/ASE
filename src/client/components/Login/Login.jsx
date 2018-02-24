@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  HelpBlock,
-  Button,
-  Grid,
-  Row,
-  Col
-} from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    isLoggedIn: false
   };
 
   onEmailChanged = e => {
@@ -30,13 +23,17 @@ class Login extends Component {
   };
 
   loginClick = e => {
+    const _this = this;
     axios
-      .post('/login', {
+      .post('/api/login', {
         email: this.state.email,
         password: this.state.password
       })
       .then(function(res) {
-        console.log(res.data.email);
+        _this.setState({
+          isLoggedIn: true
+        });
+        console.log(res.data.token);
       })
       .catch(function(err) {
         console.error(err.response);
@@ -59,7 +56,7 @@ class Login extends Component {
 
   getEmailValidateState() {
     const email = this.state.email;
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email) {
       return null;
     }
@@ -68,51 +65,45 @@ class Login extends Component {
   }
 
   render() {
+    if (this.state.isLoggedIn) {
+      return <Redirect to="/dashboard" />;
+    }
+
     return (
-      <div className="es-container">
-        <Grid className="es-login">
-          <Row>
-            <Col xs={12} sm={6} smOffset={3} md={4} mdOffset={4}>
-            <h1 className="es-form-title">Login</h1>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={6} smOffset={3} md={4} mdOffset={4}>
-              <FormGroup
-                controlId="loginEmail"
-                validationState={this.getEmailValidateState()}
-              >
-                <ControlLabel>Email</ControlLabel>
-                <FormControl
-                  type="text"
-                  value={this.state.email}
-                  placeholder="Email..."
-                  onChange={this.onEmailChanged}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-              <FormGroup
-                controlId="loginPassword"
-                validationState={this.getPasswordValidateState()}
-              >
-                <ControlLabel>Password</ControlLabel>
-                <FormControl
-                  type="password"
-                  value={this.state.password}
-                  placeholder="Password..."
-                  onChange={this.onPasswordChanged}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-              <Button block bsStyle="primary" onClick={this.loginClick}>
-                Login
-              </Button>
-              <Button block bsStyle="link" onClick={this.onReset}>
-                Reset
-              </Button>
-            </Col>
-          </Row>
-        </Grid>
+      <div className="es-login">
+        <h1 className="es-form-title">Login</h1>
+        <FormGroup
+          controlId="loginEmail"
+          validationState={this.getEmailValidateState()}
+        >
+          <ControlLabel>Email</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.email}
+            placeholder="Email..."
+            onChange={this.onEmailChanged}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+        <FormGroup
+          controlId="loginPassword"
+          validationState={this.getPasswordValidateState()}
+        >
+          <ControlLabel>Password</ControlLabel>
+          <FormControl
+            type="password"
+            value={this.state.password}
+            placeholder="Password..."
+            onChange={this.onPasswordChanged}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+        <Button block bsStyle="primary" onClick={this.loginClick}>
+          Login
+        </Button>
+        <Button block bsStyle="link" onClick={this.onReset}>
+          Reset
+        </Button>
       </div>
     );
   }
