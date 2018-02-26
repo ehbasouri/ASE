@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Register.scss';
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button,
+  Alert
+} from 'react-bootstrap';
 
 class Register extends Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    error: null,
+    isLoggedIn: false
   };
 
   onUsernameChanged = e => {
@@ -22,16 +31,23 @@ class Register extends Component {
   };
 
   onRegisterClick = e => {
+    const _this = this;
     axios
       .post('/api/register', {
         email: this.state.username,
         password: this.state.password
       })
       .then(function(res) {
-        console.log(res.data.email);
+        const token = res.data.token;
+        localStorage.setItem('token', `bearer ${token}`);
+        _this.setState({
+          isLoggedIn: true
+        });
       })
       .catch(function(err) {
-        console.error(err.response);
+        _this.setState({
+          error: err.response.data.error
+        });
       });
   };
 
@@ -59,10 +75,25 @@ class Register extends Component {
     return regex.test(email) ? 'success' : 'error';
   }
 
+  clearError = () => {
+    this.setState({
+      error: null
+    });
+  }
+
   render() {
+    if (this.state.isLoggedIn) {
+      return <Redirect to="/dashboard" />;
+    }
+
     return (
       <div>
         <h1 className="es-form-title">Register</h1>
+        {this.state.error && (
+          <Alert bsStyle="danger" onDismiss={this.clearError}>
+            {this.state.error}
+          </Alert>
+        )}
         <FormGroup
           controlId="registerEmail"
           validationState={this.getEmailValidateState()}

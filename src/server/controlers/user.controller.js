@@ -1,6 +1,16 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 
+function generateToken(email, id) {
+  return jwt.sign(
+    {
+      email,
+      id
+    },
+    'secret'
+  );
+}
+
 function registerUser(req, res, next) {
   if (!req.body.email || !req.body.password) {
     res.status(400).json({ error: 'Bad Data' });
@@ -14,9 +24,11 @@ function registerUser(req, res, next) {
 
   newUser
     .save()
-    .then(function() {
+    .then(function(user) {
+      const token = generateToken(user.email, user.id);
+
       res.status(201).json({
-        email: req.body.email
+        token
       });
     })
     .catch(function(err) {
@@ -52,11 +64,8 @@ function login(req, res, next) {
       }
 
       if (user.password === req.body.password) {
-        const token = jwt.sign({
-          email: user.email,
-          id: user.id
-        }, 'secret');
-        res.status(200).json({ token: token });
+        const token = generateToken(user.email, user.id);
+        res.status(200).json({ token });
       } else {
         res.status(404).json({ error: 'User not found' });
       }
@@ -68,7 +77,7 @@ function login(req, res, next) {
 }
 
 module.exports = {
-  registerUser: registerUser,
-  getUsers: getUsers,
-  login: login
+  registerUser,
+  getUsers,
+  login
 };

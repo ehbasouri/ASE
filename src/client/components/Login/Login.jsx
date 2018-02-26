@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button,
+  Alert
+} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   state = {
     email: '',
     password: '',
-    isLoggedIn: false
+    isLoggedIn: false,
+    error: null
   };
 
   onEmailChanged = e => {
@@ -30,13 +37,16 @@ class Login extends Component {
         password: this.state.password
       })
       .then(function(res) {
+        const token = res.data.token;
+        localStorage.setItem('token', `bearer ${token}`);
         _this.setState({
           isLoggedIn: true
         });
-        console.log(res.data.token);
       })
       .catch(function(err) {
-        console.error(err.response);
+        _this.setState({
+          error: err.response.data.error
+        });
       });
   };
 
@@ -64,6 +74,12 @@ class Login extends Component {
     return regex.test(email) ? 'success' : 'error';
   }
 
+  clearError = () => {
+    this.setState({
+      error: null
+    });
+  }
+
   render() {
     if (this.state.isLoggedIn) {
       return <Redirect to="/dashboard" />;
@@ -72,6 +88,11 @@ class Login extends Component {
     return (
       <div className="es-login">
         <h1 className="es-form-title">Login</h1>
+        {this.state.error && (
+          <Alert bsStyle="danger" onDismiss={this.clearError}>
+            {this.state.error}
+          </Alert>
+        )}
         <FormGroup
           controlId="loginEmail"
           validationState={this.getEmailValidateState()}

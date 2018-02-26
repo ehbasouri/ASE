@@ -29072,6 +29072,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 __webpack_require__(197);
 
+var _reactRouterDom = __webpack_require__(93);
+
 var _reactBootstrap = __webpack_require__(65);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29088,7 +29090,7 @@ var Register = function (_Component) {
   function Register() {
     var _ref;
 
-    var _temp, _this, _ret;
+    var _temp, _this2, _ret;
 
     _classCallCheck(this, Register);
 
@@ -29096,32 +29098,45 @@ var Register = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Register.__proto__ || Object.getPrototypeOf(Register)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Register.__proto__ || Object.getPrototypeOf(Register)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {
       username: '',
-      password: ''
-    }, _this.onUsernameChanged = function (e) {
-      _this.setState({
+      password: '',
+      error: null,
+      isLoggedIn: false
+    }, _this2.onUsernameChanged = function (e) {
+      _this2.setState({
         username: e.target.value
       });
-    }, _this.onPasswordChanged = function (e) {
-      _this.setState({
+    }, _this2.onPasswordChanged = function (e) {
+      _this2.setState({
         password: e.target.value
       });
-    }, _this.onRegisterClick = function (e) {
+    }, _this2.onRegisterClick = function (e) {
+      var _this = _this2;
       _axios2.default.post('/api/register', {
-        email: _this.state.username,
-        password: _this.state.password
+        email: _this2.state.username,
+        password: _this2.state.password
       }).then(function (res) {
-        console.log(res.data.email);
+        var token = res.data.token;
+        localStorage.setItem('token', 'bearer ' + token);
+        _this.setState({
+          isLoggedIn: true
+        });
       }).catch(function (err) {
-        console.error(err.response);
+        _this.setState({
+          error: err.response.data.error
+        });
       });
-    }, _this.onReset = function (e) {
-      _this.setState({
+    }, _this2.onReset = function (e) {
+      _this2.setState({
         username: '',
         password: ''
       });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this2.clearError = function () {
+      _this2.setState({
+        error: null
+      });
+    }, _temp), _possibleConstructorReturn(_this2, _ret);
   }
 
   _createClass(Register, [{
@@ -29145,6 +29160,10 @@ var Register = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      if (this.state.isLoggedIn) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
+      }
+
       return _react2.default.createElement(
         'div',
         null,
@@ -29152,6 +29171,11 @@ var Register = function (_Component) {
           'h1',
           { className: 'es-form-title' },
           'Register'
+        ),
+        this.state.error && _react2.default.createElement(
+          _reactBootstrap.Alert,
+          { bsStyle: 'danger', onDismiss: this.clearError },
+          this.state.error
         ),
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
@@ -42377,7 +42401,8 @@ var Login = function (_Component) {
     return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Login.__proto__ || Object.getPrototypeOf(Login)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {
       email: '',
       password: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      error: null
     }, _this2.onEmailChanged = function (e) {
       _this2.setState({
         email: e.target.value
@@ -42392,17 +42417,24 @@ var Login = function (_Component) {
         email: _this2.state.email,
         password: _this2.state.password
       }).then(function (res) {
+        var token = res.data.token;
+        localStorage.setItem('token', 'bearer ' + token);
         _this.setState({
           isLoggedIn: true
         });
-        console.log(res.data.token);
       }).catch(function (err) {
-        console.error(err.response);
+        _this.setState({
+          error: err.response.data.error
+        });
       });
     }, _this2.onReset = function (e) {
       _this2.setState({
         email: '',
         password: ''
+      });
+    }, _this2.clearError = function () {
+      _this2.setState({
+        error: null
       });
     }, _temp), _possibleConstructorReturn(_this2, _ret);
   }
@@ -42439,6 +42471,11 @@ var Login = function (_Component) {
           'h1',
           { className: 'es-form-title' },
           'Login'
+        ),
+        this.state.error && _react2.default.createElement(
+          _reactBootstrap.Alert,
+          { bsStyle: 'danger', onDismiss: this.clearError },
+          this.state.error
         ),
         _react2.default.createElement(
           _reactBootstrap.FormGroup,
@@ -45617,6 +45654,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(93);
 
+var _reactBootstrap = __webpack_require__(65);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45629,15 +45668,104 @@ var Dashboard = function (_Component) {
   _inherits(Dashboard, _Component);
 
   function Dashboard() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, Dashboard);
 
-    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      user: null
+    }, _this.logout = function () {
+      localStorage.removeItem('token');
+      _this.setState({
+        user: null
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Dashboard, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.getEmailFromToken();
+    }
+  }, {
+    key: 'getEmailFromToken',
+    value: function getEmailFromToken() {
+      var token = localStorage.getItem('token');
+      if (token) {
+        try {
+          var rawToken = token.split(' ')[1];
+          var b64Payload = rawToken.split('.')[1];
+          var strPayload = atob(b64Payload);
+          var payload = JSON.parse(strPayload);
+          var email = payload.email;
+          this.setState({
+            user: email
+          });
+        } catch (e) {
+          console.warn('Token Invalid ', e);
+          this.logout();
+        }
+      } else {
+        this.logout();
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return 'Dashboard';
+      if (!this.state.user) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
+      }
+
+      return _react2.default.createElement(
+        _reactBootstrap.Navbar,
+        { bsStyle: 'inverse', fluid: true, staticTop: true },
+        _react2.default.createElement(
+          _reactBootstrap.Navbar.Header,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Navbar.Brand,
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              'IEstate'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Nav,
+          { pullRight: true },
+          _react2.default.createElement(
+            _reactBootstrap.NavItem,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Navbar.Link,
+              { onClick: this.logout },
+              'Logout'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Navbar.Collapse,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Navbar.Text,
+            null,
+            'Signed in as: ',
+            _react2.default.createElement(
+              _reactBootstrap.Navbar.Link,
+              { href: '#' },
+              this.state.user
+            )
+          )
+        )
+      );
     }
   }]);
 
