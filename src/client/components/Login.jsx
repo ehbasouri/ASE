@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Register.scss';
-import { Redirect } from 'react-router-dom';
 import {
   FormGroup,
   ControlLabel,
@@ -9,18 +7,19 @@ import {
   Button,
   Alert
 } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
-class Register extends Component {
+class Login extends Component {
   state = {
-    username: '',
+    email: '',
     password: '',
-    error: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    error: null
   };
 
-  onUsernameChanged = e => {
+  onEmailChanged = e => {
     this.setState({
-      username: e.target.value
+      email: e.target.value
     });
   };
 
@@ -30,11 +29,11 @@ class Register extends Component {
     });
   };
 
-  onRegisterClick = e => {
+  loginClick = e => {
     const _this = this;
     axios
-      .post('/api/register', {
-        email: this.state.username,
+      .post('/api/login', {
+        email: this.state.email,
         password: this.state.password
       })
       .then(function(res) {
@@ -53,7 +52,7 @@ class Register extends Component {
 
   onReset = e => {
     this.setState({
-      username: '',
+      email: '',
       password: ''
     });
   };
@@ -66,7 +65,7 @@ class Register extends Component {
   }
 
   getEmailValidateState() {
-    const email = this.state.username;
+    const email = this.state.email;
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email) {
       return null;
@@ -79,7 +78,7 @@ class Register extends Component {
     this.setState({
       error: null
     });
-  }
+  };
 
   render() {
     if (this.state.isLoggedIn) {
@@ -87,48 +86,48 @@ class Register extends Component {
     }
 
     return (
-      <div>
-        <h1 className="es-form-title">Register</h1>
+      <div className="es-login">
+        <h1 className="es-form-title">ورود</h1>
         {this.state.error && (
           <Alert bsStyle="danger" onDismiss={this.clearError}>
             {this.state.error}
           </Alert>
         )}
         <FormGroup
-          controlId="registerEmail"
+          controlId="loginEmail"
           validationState={this.getEmailValidateState()}
         >
-          <ControlLabel>Email</ControlLabel>
+          <ControlLabel>پست الکترونیکی</ControlLabel>
           <FormControl
             type="text"
-            value={this.state.username}
-            placeholder="Email..."
-            onChange={this.onUsernameChanged}
+            value={this.state.email}
+            placeholder="پست الکترونیکی..."
+            onChange={this.onEmailChanged}
           />
           <FormControl.Feedback />
         </FormGroup>
         <FormGroup
-          controlId="registerPassword"
+          controlId="loginPassword"
           validationState={this.getPasswordValidateState()}
         >
-          <ControlLabel>Password</ControlLabel>
+          <ControlLabel>کلمه عبور</ControlLabel>
           <FormControl
             type="password"
             value={this.state.password}
-            placeholder="Password..."
+            placeholder="کلمه عبور..."
             onChange={this.onPasswordChanged}
           />
           <FormControl.Feedback />
         </FormGroup>
-        <Button block bsStyle="primary" onClick={this.onRegisterClick}>
-          Register
+        <Button block bsStyle="primary" onClick={this.loginClick}>
+          ورود
         </Button>
         <Button block bsStyle="link" onClick={this.onReset}>
-          Reset
+          پاک سازی
         </Button>
       </div>
     );
   }
 }
 
-export default Register;
+export default Login;

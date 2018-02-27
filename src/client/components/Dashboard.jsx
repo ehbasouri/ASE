@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  Grid,
-  Row,
-  Col,
-  Button,
-  Navbar,
-  NavItem,
-  Label,
-  Nav
-} from 'react-bootstrap';
+import AppHeader from './AppHeader.jsx';
+import EstateList from './EstateList.jsx';
+import axios from 'axios';
 
 class Dashboard extends Component {
   state = {
-    user: null
+    user: null,
+    estates: []
   };
 
   componentWillMount() {
     this.getEmailFromToken();
+  }
+
+  componentDidMount() {
+    this.getEstates();
+  }
+
+  getEstates() {
+    const _this = this;
+    axios('/api/estates', {
+      headers: {
+        Authorization: _this.token
+      }
+    })
+      .then(res => {
+        _this.setState({
+          estates: res.data.estates
+        });
+      })
+      .catch(err => {
+        console.warn(err);
+      });
   }
 
   getEmailFromToken() {
@@ -32,6 +47,7 @@ class Dashboard extends Component {
         this.setState({
           user: email
         });
+        this.token = token;
       } catch (e) {
         console.warn('Token Invalid ', e);
         this.logout();
@@ -53,24 +69,16 @@ class Dashboard extends Component {
       return <Redirect to="/login" />;
     }
 
+    console.log(this.state.estates);
     return (
-      <Navbar bsStyle="inverse" fluid staticTop>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#">IEstate</a>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav pullRight>
-          <NavItem>
-            <Navbar.Link onClick={this.logout}>Logout</Navbar.Link>
-          </NavItem>
-        </Nav>
-        <Navbar.Collapse>
-          <Navbar.Text>
-            Signed in as: <Navbar.Link href="#">{this.state.user}</Navbar.Link>
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Navbar>
+      <div>
+        <AppHeader
+          user={this.state.user}
+          headerStyle="inverse"
+          logout={this.logout}
+        />
+        <EstateList estates={this.state.estates} />
+      </div>
     );
   }
 }

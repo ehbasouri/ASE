@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Auth from './components/Auth/Auth.jsx';
-import Dashboard from './components/Dashboard/Dashboard.jsx';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-
-const isDashboard = window.location.pathname == '/dashboard';
+import Auth from './components/Auth.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import './style.scss';
 
 ReactDOM.render(
   <BrowserRouter>

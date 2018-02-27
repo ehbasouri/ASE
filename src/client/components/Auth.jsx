@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Register from '../Register/Register.jsx';
-import Login from '../Login/Login.jsx';
+import Register from './Register.jsx';
+import Login from './Login.jsx';
 import { Tabs, Tab, Grid, Row, Col } from 'react-bootstrap';
-import './Auth.scss';
 
 class Auth extends Component {
   state = {
@@ -21,10 +20,10 @@ class Auth extends Component {
               animation={true}
               id="auth-tab"
             >
-              <Tab eventKey={1} title="Login">
+              <Tab eventKey={1} title="ورود">
                 <Login />
               </Tab>
-              <Tab eventKey={2} title="Register">
+              <Tab eventKey={2} title="ثبت نام">
                 <Register />
               </Tab>
             </Tabs>
