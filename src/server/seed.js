@@ -17,6 +17,7 @@ function seed() {
     floor: 3,
     image_url: 'images/dream-house.jpg',
     estate_type: 'apartment',
+    seller: admin.id,
     build_year: 1388,
     rooms: 2,
     parking: true,
@@ -30,6 +31,7 @@ function seed() {
     title: 'زمین 1',
     address: 'گرگان خیابان مطهری، جنب جیگرکی حسین',
     area: 1000,
+    seller: admin.id,
     image_url: 'images/dream-land.jpg',
     estate_type: 'land',
     price: 150000000

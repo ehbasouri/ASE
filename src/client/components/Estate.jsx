@@ -17,6 +17,7 @@ const Estate = props => (
       </Panel.Heading>
       <Panel.Body>
         <Image
+          className="estate-image"
           responsive
           thumbnail
           src={props.estate.image_url}
@@ -24,17 +25,18 @@ const Estate = props => (
         />
       </Panel.Body>
       <ListGroup className="rtl-list-group">
-        {props.estate.pre && (
+        { (props.estate.pre != undefined) && (
           <ListGroupItem>رهن: {props.estate.pre} ریال</ListGroupItem>
         )}
-        {props.estate.rent && (
+        {props.estate.rent != undefined && (
           <ListGroupItem>اجاره: {props.estate.rent} ریال</ListGroupItem>
         )}
-        {props.estate.price && (
+        {props.estate.price != undefined && (
           <ListGroupItem>قیمت: {props.estate.price} ریال</ListGroupItem>
         )}
         <ListGroupItem>
           <Button bsStyle="primary">اطلاعات بیشتر</Button>
+          <Button bsStyle="link" onClick={props.onDelete.bind(this, props.estate._id)}>حذف</Button>
         </ListGroupItem>
       </ListGroup>
     </Panel>

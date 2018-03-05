@@ -10,6 +10,8 @@ apiRouter.post('/login', userController.login);
 apiRouter.get('/users', userController.getUsers);
 
 apiRouter.get('/estates', jwt({ secret: 'secret' }), estateController.getEstates);
-
+apiRouter.post('/estates', jwt({ secret: 'secret' }), estateController.createEstate);
+apiRouter.delete('/estates/:id', jwt({ secret: 'secret' }), estateController.deleteEstate);
+apiRouter.patch('/estates/:id/image',  jwt({ secret: 'secret' }), estateController.changeEstateImage);
 
 module.exports = apiRouter;

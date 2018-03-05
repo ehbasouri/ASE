@@ -2,11 +2,13 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const path = require('path');
 const apiRouter = require('./api');
+const fileUpload = require('express-fileupload');
 
 require('./db');
 
 const app = express();
 app.use(bodyparser.json());
+app.use(fileUpload());
 app.use('/api', apiRouter);
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));

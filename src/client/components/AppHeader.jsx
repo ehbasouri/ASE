@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavItem, Nav } from 'react-bootstrap';
+import { Navbar, NavItem, Nav, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const AppHeader = props => (
   <Navbar bsStyle={props.headerStyle} fluid staticTop>
@@ -10,6 +10,12 @@ const AppHeader = props => (
       </Navbar.Brand>
     </Navbar.Header>
     <Navbar.Collapse>
+      <Navbar.Form pullLeft>
+        <FormGroup>
+          <FormControl type="text" placeholder="Search" onChange={props.onChange} value={props.query}/>
+        </FormGroup>
+        <Button type="submit" onClick={props.onSearch}>جستجو</Button>
+      </Navbar.Form>
       <Navbar.Text>
         <Navbar.Link href="#">{props.user}</Navbar.Link>
       </Navbar.Text>
