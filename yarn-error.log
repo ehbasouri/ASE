@@ -1,0 +1,85 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js start
+
+PATH: 
+  C:\Users\front\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\cmd;C:\Users\front\.windows-build-tools\python27;C:\Users\front\.windows-build-tools\python27\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\ProgramData\nvm;C:\Program Files\nodejs;D:\Program\Dev\Editor\Neovim\Neovim\bin;C:\Program Files\Microsoft VS Code;C:\Users\front\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\3.4\bin;C:\Users\front\xampp\mysql\bin;C:\Users\front\xampp\php;C:\Users\front\AppData\Local\hyper;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit;C:\Program Files (x86)\Skype\Phone;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\front\AppData\Local\Postman\app-6.0.6;C:\Program Files (x86)\Yarn\bin;C:\Users\front\AppData\Local\Microsoft\WindowsApps;C:\Users\front\AppData\Local\atom\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\front\AppData\Roaming\npm;C:\Users\front\AppData\Local\Microsoft\WindowsApps;C:\Users\front\AppData\Local\hyper\app-2.0.0-canary14\resources\bin;C:\Users\front\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.2.0
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "aes",
+    "version": "1.0.0",
+    "description": "Shiva vafadar project",
+    "main": "index.js",
+    "dependencies": {
+      "axios": "^0.17.1",
+      "babel-cli": "^6.26.0",
+      "babel-core": "^6.26.0",
+      "babel-loader": "^7.1.2",
+      "babel-preset-env": "^1.6.1",
+      "babel-preset-react": "^6.24.1",
+      "babel-preset-stage-0": "^6.24.1",
+      "body-parser": "^1.18.2",
+      "express": "^4.16.2",
+      "express-fileupload": "^0.4.0",
+      "express-jwt": "^5.3.0",
+      "jsonwebtoken": "^8.1.1",
+      "mongoose": "^5.0.5",
+      "node-sass": "^4.7.2",
+      "react": "^16.2.0",
+      "react-bootstrap": "^0.32.1",
+      "react-dom": "^16.2.0",
+      "react-router-dom": "^4.2.2",
+      "uuid": "^3.2.1",
+      "webpack": "^3.11.0"
+    },
+    "devDependencies": {
+      "babel-eslint": "^8.2.2",
+      "css-loader": "^0.28.10",
+      "eslint": "^4.18.1",
+      "eslint-plugin-react": "^7.7.0",
+      "nodemon": "^1.15.1",
+      "npm-run-all": "^4.1.2",
+      "sass-loader": "^6.0.6",
+      "style-loader": "^0.20.2"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "webpack",
+      "client": "webpack -w",
+      "lint": "eslint src",
+      "server": "nodemon src/server/server.js",
+      "start": "npm-run-all --parallel server client"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 3221225786
+  Command: C:\WINDOWS\system32\cmd.exe
+  Arguments: /d /s /c npm-run-all --parallel server client
+  Directory: D:\Project\Other\Uni\ASE\iEstate
+  Output:
+  
+      at ProcessTermError.MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Program Files (x86)\Yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:30281:17)
+      at ChildProcess.emit (events.js:159:13)
+      at maybeClose (internal/child_process.js:943:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:220:5)

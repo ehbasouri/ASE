@@ -45530,7 +45530,7 @@ var AddEstate = function (_Component) {
           _react2.default.createElement(
             _reactBootstrap.Modal.Title,
             null,
-            'Modal heading'
+            '\u062B\u0628\u062A \u0645\u0644\u06A9'
           )
         ),
         _react2.default.createElement(
@@ -45539,6 +45539,40 @@ var AddEstate = function (_Component) {
           _react2.default.createElement(
             _reactBootstrap.Form,
             { onSubmit: this.onSubmit },
+            _react2.default.createElement(
+              _reactBootstrap.FormGroup,
+              { controlId: 'estate-type' },
+              _react2.default.createElement(
+                _reactBootstrap.ControlLabel,
+                null,
+                '\u0646\u0648\u0639 \u0645\u0644\u06A9'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormControl,
+                { componentClass: 'select', placeholder: '\u0646\u0648\u0639 \u0645\u0644\u06A9', onChange: this.formChanged, name: 'estate_type' },
+                _react2.default.createElement(
+                  'option',
+                  { value: 'apartment' },
+                  '\u0622\u067E\u0627\u0631\u062A\u0645\u0627\u0646'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'land' },
+                  '\u0632\u0645\u06CC\u0646'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'villa' },
+                  '\u0648\u06CC\u0644\u0627'
+                ),
+                _react2.default.createElement(
+                  'option',
+                  { value: 'comercial' },
+                  '\u0645\u063A\u0627\u0632\u0647'
+                )
+              ),
+              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+            ),
             _react2.default.createElement(
               _reactBootstrap.FormGroup,
               { controlId: 'estate-title' },
@@ -45590,159 +45624,128 @@ var AddEstate = function (_Component) {
               }),
               _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
             ),
-            _react2.default.createElement('input', { type: 'file', name: 'estateImage', onChange: this.onImageChanged }),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-floors' },
+            this.state.estate_type !== 'land' && _react2.default.createElement(
+              _react.Fragment,
+              null,
               _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'floors',
-                type: 'number',
-                value: this.state.floors,
-                placeholder: '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-floor' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u0637\u0628\u0642\u0647'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'floor',
-                type: 'number',
-                value: this.state.floor,
-                placeholder: '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-type' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u0646\u0648\u0639 \u0645\u0644\u06A9'
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-floors' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'floors',
+                  type: 'number',
+                  value: this.state.floors,
+                  placeholder: '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A...',
+                  onChange: this.formChanged
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
               _react2.default.createElement(
-                _reactBootstrap.FormControl,
-                { componentClass: 'select', placeholder: '\u0646\u0648\u0639 \u0645\u0644\u06A9', onChange: this.formChanged, name: 'estate_type' },
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-floor' },
                 _react2.default.createElement(
-                  'option',
-                  { value: 'apartment' },
-                  '\u0622\u067E\u0627\u0631\u062A\u0645\u0627\u0646'
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u0637\u0628\u0642\u0647'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'floor',
+                  type: 'number',
+                  value: this.state.floor,
+                  placeholder: '\u062A\u0639\u062F\u0627\u062F \u0637\u0628\u0642\u0627\u062A...',
+                  onChange: this.formChanged
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-year' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u0633\u0627\u0644 \u0633\u0627\u062E\u062A:'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'build_year',
+                  type: 'number',
+                  value: this.state.build_year,
+                  placeholder: '\u0633\u0627\u0644 \u0633\u0627\u062E\u062A...',
+                  onChange: this.formChanged
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-rooms' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u062A\u0639\u062F\u0627\u062F \u0627\u062A\u0627\u0642:'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'rooms',
+                  type: 'number',
+                  value: this.state.rooms,
+                  placeholder: '\u062A\u0639\u062F\u0627\u062F \u0627\u062A\u0627\u0642...',
+                  onChange: this.formChanged
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-parking' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u067E\u0627\u0631\u06A9\u06CC\u0646\u06AF:'
                 ),
                 _react2.default.createElement(
-                  'option',
-                  { value: 'land' },
-                  '\u0632\u0645\u06CC\u0646'
-                ),
-                _react2.default.createElement(
-                  'option',
-                  { value: 'villa' },
-                  '\u0648\u06CC\u0644\u0627'
-                ),
-                _react2.default.createElement(
-                  'option',
-                  { value: 'comercial' },
-                  '\u0645\u063A\u0627\u0632\u0647'
+                  _reactBootstrap.Checkbox,
+                  { name: 'parking',
+                    checked: this.state.parking,
+                    onChange: this.formChanged
+                  },
+                  '\u067E\u0627\u0631\u06A9\u06CC\u0646\u06AF'
                 )
               ),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-year' },
               _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u0633\u0627\u0644 \u0633\u0627\u062E\u062A:'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'build_year',
-                type: 'number',
-                value: this.state.build_year,
-                placeholder: '\u0633\u0627\u0644 \u0633\u0627\u062E\u062A...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-rooms' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u062A\u0639\u062F\u0627\u062F \u0627\u062A\u0627\u0642:'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'rooms',
-                type: 'number',
-                value: this.state.rooms,
-                placeholder: '\u062A\u0639\u062F\u0627\u062F \u0627\u062A\u0627\u0642...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-parking' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u067E\u0627\u0631\u06A9\u06CC\u0646\u06AF:'
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Checkbox,
-                { name: 'parking',
-                  checked: this.state.parking,
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-pre' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u067E\u0648\u0644 \u067E\u06CC\u0634:'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'pre',
+                  type: 'text',
+                  value: this.state.pre,
+                  placeholder: '\u067E\u0648\u0644 \u067E\u06CC\u0634...',
                   onChange: this.formChanged
-                },
-                '\u067E\u0627\u0631\u06A9\u06CC\u0646\u06AF'
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'estate-rent' },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  '\u0627\u062C\u0627\u0631\u0647 \u0645\u0627\u0647\u06CC\u0627\u0646\u0647:'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  name: 'rent',
+                  type: 'text',
+                  value: this.state.rent,
+                  placeholder: '\u0627\u062C\u0627\u0631\u0647 \u0645\u0627\u0647\u06CC\u0627\u0646\u0647...',
+                  onChange: this.formChanged
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               )
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-pre' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u067E\u0648\u0644 \u067E\u06CC\u0634:'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'pre',
-                type: 'text',
-                value: this.state.pre,
-                placeholder: '\u067E\u0648\u0644 \u067E\u06CC\u0634...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.FormGroup,
-              { controlId: 'estate-rent' },
-              _react2.default.createElement(
-                _reactBootstrap.ControlLabel,
-                null,
-                '\u0627\u062C\u0627\u0631\u0647 \u0645\u0627\u0647\u06CC\u0627\u0646\u0647:'
-              ),
-              _react2.default.createElement(_reactBootstrap.FormControl, {
-                name: 'rent',
-                type: 'text',
-                value: this.state.rent,
-                placeholder: '\u0627\u062C\u0627\u0631\u0647 \u0645\u0627\u0647\u06CC\u0627\u0646\u0647...',
-                onChange: this.formChanged
-              }),
-              _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
             ),
             _react2.default.createElement(
               _reactBootstrap.FormGroup,
@@ -45762,9 +45765,14 @@ var AddEstate = function (_Component) {
               _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
             ),
             _react2.default.createElement(
-              _reactBootstrap.Button,
-              { type: 'submit', block: true, bsStyle: 'primary' },
-              '\u062B\u0628\u062A'
+              _reactBootstrap.FormGroup,
+              { controlId: 'estate-image' },
+              _react2.default.createElement(
+                _reactBootstrap.ControlLabel,
+                null,
+                '\u062A\u0635\u0648\u06CC\u0631 \u0645\u0644\u06A9:'
+              ),
+              _react2.default.createElement('input', { type: 'file', name: 'estateImage', onChange: this.onImageChanged })
             )
           )
         ),
@@ -45773,8 +45781,13 @@ var AddEstate = function (_Component) {
           null,
           _react2.default.createElement(
             _reactBootstrap.Button,
+            { type: 'submit', bsStyle: 'primary', onClick: this.onSubmit },
+            '\u062B\u0628\u062A'
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Button,
             { onClick: this.props.closeAddEstate },
-            'Close'
+            '\u0644\u063A\u0648'
           )
         )
       );

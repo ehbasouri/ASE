@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form, FormControl, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 
@@ -88,10 +88,21 @@ class AddEstate extends Component {
   render() {
     return (<Modal show={this.props.show} onHide={this.props.closeAddEstate}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>ثبت ملک</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={this.onSubmit}>
+          <FormGroup controlId="estate-type">
+            <ControlLabel>نوع ملک</ControlLabel>
+            <FormControl componentClass="select" placeholder="نوع ملک" onChange={this.formChanged} name="estate_type">
+              <option value="apartment">آپارتمان</option>
+              <option value="land">زمین</option>
+              <option value="villa">ویلا</option>
+              <option value="comercial">مغازه</option>
+            </FormControl>
+            <FormControl.Feedback />
+          </FormGroup>
+
           <FormGroup controlId="estate-title">
             <ControlLabel>نام ملک</ControlLabel>
             <FormControl
@@ -103,6 +114,7 @@ class AddEstate extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
+
           <FormGroup controlId="estate-address">
             <ControlLabel>آدرس</ControlLabel>
             <FormControl
@@ -114,6 +126,7 @@ class AddEstate extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
+
           <FormGroup controlId="estate-area">
             <ControlLabel>متراژ</ControlLabel>
             <FormControl
@@ -125,92 +138,87 @@ class AddEstate extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
-          <input type="file" name="estateImage" onChange={this.onImageChanged} />
-          <FormGroup controlId="estate-floors">
-            <ControlLabel>تعداد طبقات</ControlLabel>
-            <FormControl
-              name="floors"
-              type="number"
-              value={this.state.floors}
-              placeholder="تعداد طبقات..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-floor">
-            <ControlLabel>طبقه</ControlLabel>
-            <FormControl
-              name="floor"
-              type="number"
-              value={this.state.floor}
-              placeholder="تعداد طبقات..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-type">
-            <ControlLabel>نوع ملک</ControlLabel>
-            <FormControl componentClass="select" placeholder="نوع ملک" onChange={this.formChanged} name="estate_type">
-              <option value="apartment">آپارتمان</option>
-              <option value="land">زمین</option>
-              <option value="villa">ویلا</option>
-              <option value="comercial">مغازه</option>
-            </FormControl>
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-year">
-            <ControlLabel>سال ساخت:</ControlLabel>
-            <FormControl
-              name="build_year"
-              type="number"
-              value={this.state.build_year}
-              placeholder="سال ساخت..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-rooms">
-            <ControlLabel>تعداد اتاق:</ControlLabel>
-            <FormControl
-              name="rooms"
-              type="number"
-              value={this.state.rooms}
-              placeholder="تعداد اتاق..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-parking">
-            <ControlLabel>پارکینگ:</ControlLabel>
-            <Checkbox name="parking"
-              checked={this.state.parking}
-              onChange={this.formChanged}
-            >
-              پارکینگ
-            </Checkbox>
-          </FormGroup>
-          <FormGroup controlId="estate-pre">
-            <ControlLabel>پول پیش:</ControlLabel>
-            <FormControl
-              name="pre"
-              type="text"
-              value={this.state.pre}
-              placeholder="پول پیش..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="estate-rent">
-            <ControlLabel>اجاره ماهیانه:</ControlLabel>
-            <FormControl
-              name="rent"
-              type="text"
-              value={this.state.rent}
-              placeholder="اجاره ماهیانه..."
-              onChange={this.formChanged}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
+
+          {
+            this.state.estate_type !== 'land' &&
+            <Fragment>
+              <FormGroup controlId="estate-floors">
+                <ControlLabel>تعداد طبقات</ControlLabel>
+                <FormControl
+                  name="floors"
+                  type="number"
+                  value={this.state.floors}
+                  placeholder="تعداد طبقات..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup controlId="estate-floor">
+                <ControlLabel>طبقه</ControlLabel>
+                <FormControl
+                  name="floor"
+                  type="number"
+                  value={this.state.floor}
+                  placeholder="تعداد طبقات..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup controlId="estate-year">
+                <ControlLabel>سال ساخت:</ControlLabel>
+                <FormControl
+                  name="build_year"
+                  type="number"
+                  value={this.state.build_year}
+                  placeholder="سال ساخت..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup controlId="estate-rooms">
+                <ControlLabel>تعداد اتاق:</ControlLabel>
+                <FormControl
+                  name="rooms"
+                  type="number"
+                  value={this.state.rooms}
+                  placeholder="تعداد اتاق..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup controlId="estate-parking">
+                <ControlLabel>پارکینگ:</ControlLabel>
+                <Checkbox name="parking"
+                  checked={this.state.parking}
+                  onChange={this.formChanged}
+                >
+                  پارکینگ
+                </Checkbox>
+              </FormGroup>
+              <FormGroup controlId="estate-pre">
+                <ControlLabel>پول پیش:</ControlLabel>
+                <FormControl
+                  name="pre"
+                  type="text"
+                  value={this.state.pre}
+                  placeholder="پول پیش..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup controlId="estate-rent">
+                <ControlLabel>اجاره ماهیانه:</ControlLabel>
+                <FormControl
+                  name="rent"
+                  type="text"
+                  value={this.state.rent}
+                  placeholder="اجاره ماهیانه..."
+                  onChange={this.formChanged}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+            </Fragment>
+          }
           <FormGroup controlId="estate-price">
             <ControlLabel>قیمت فروش:</ControlLabel>
             <FormControl
@@ -222,11 +230,17 @@ class AddEstate extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
-          <Button type="submit" block bsStyle="primary">ثبت</Button>
+
+          <FormGroup controlId="estate-image">
+            <ControlLabel>تصویر ملک:</ControlLabel>
+            <input type="file" name="estateImage" onChange={this.onImageChanged} />
+          </FormGroup>
+
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={this.props.closeAddEstate}>Close</Button>
+        <Button type="submit" bsStyle="primary" onClick={this.onSubmit}>ثبت</Button>
+        <Button onClick={this.props.closeAddEstate}>لغو</Button>
       </Modal.Footer>
     </Modal>
     );
