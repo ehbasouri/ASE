@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavItem, Nav, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Navbar, NavItem, Nav, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 const AppHeader = props => (
   <Navbar bsStyle={props.headerStyle} fluid staticTop>
@@ -10,27 +10,31 @@ const AppHeader = props => (
       </Navbar.Brand>
     </Navbar.Header>
     <Navbar.Collapse>
-      <Navbar.Form pullLeft>
-        <FormGroup>
-          <FormControl type="text" placeholder="Search" onChange={props.onChange} value={props.query}/>
-        </FormGroup>
-        <Button type="submit" onClick={props.onSearch}>جستجو</Button>
-      </Navbar.Form>
-      <Navbar.Text>
-        <Navbar.Link href="#">{props.user}</Navbar.Link>
-      </Navbar.Text>
-      <Nav>
+      <Nav style={{ float: 'left' }}>
         <NavItem componentClass="span">
           <Navbar.Link
             style={{ padding: 15, display: 'inline-block' }}
             onClick={props.logout}
           >
             خروج
-          </Navbar.Link>
+        </Navbar.Link>
         </NavItem>
       </Nav>
+      <Navbar.Form pullLeft>
+        <FormGroup>
+          <InputGroup>
+            <FormControl style={{ background: '#111', color: '#eee', border: 'unset' }} type="text" placeholder="Search" onChange={props.onChange} value={props.query} />
+            <InputGroup.Button>
+              <Button style={{ background: '#286090', color: '#eee', border: 'unset' }} type="submit" onClick={props.onSearch}>جستجو</Button>
+            </InputGroup.Button>
+          </InputGroup>
+        </FormGroup>
+      </Navbar.Form>
+      <Navbar.Text>
+        <Navbar.Link href="#">{props.user}</Navbar.Link>
+      </Navbar.Text>
     </Navbar.Collapse>
-  </Navbar>
+  </Navbar >
 );
 
 export default AppHeader;

@@ -71,7 +71,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 3221225786
+  Exit code: 1
   Command: C:\WINDOWS\system32\cmd.exe
   Arguments: /d /s /c npm-run-all --parallel server client
   Directory: D:\Project\Other\Uni\ASE\iEstate
