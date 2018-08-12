@@ -17,6 +17,6 @@ app.get('*', function(req, res, next) {
   res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
 });
 
-app.listen(3000, function() {
-  console.log('Server listening on port 3000');
+app.listen(5000, function() {
+  console.log('Server listening on port 5000');
 });

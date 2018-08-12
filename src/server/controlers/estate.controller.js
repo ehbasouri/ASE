@@ -13,6 +13,7 @@ function getEstates(req, res, next) {
       title: titleRegex
     })
     .then(estates => {
+      console.log(estates)
       res.json({
         estates
       });
@@ -27,7 +28,6 @@ function getEstates(req, res, next) {
 function createEstate(req, res, next) {
   if (!req.body.title ||
     !req.body.address ||
-    !req.body.seller ||
     !req.body.area ||
     !req.body.estate_type) {
     res.status(400).json({
@@ -35,6 +35,9 @@ function createEstate(req, res, next) {
     });
     return;
   }
+
+  const userId = req.user.id;
+  req.body.seller = userId;
 
   const newEstate = new Estate(req.body);
 
